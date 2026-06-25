@@ -1,0 +1,9 @@
+.color-card {
+  border-radius: 100px;
+  width: 60px;
+  aspect-ratio: 1;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,15 @@
+.grid {
+  margin-top: 20px;
+  margin-left: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.card {
+  width: 100%;
+  aspect-ratio: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

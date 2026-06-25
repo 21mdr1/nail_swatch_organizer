@@ -1,0 +1,10 @@
+.grid-bkg {
+  background-color: var(
+--rs-color-background-neutral-faded);
+  opacity: 0.8;
+  background-image: radial-gradient(#333435 1px, var(
+--rs-color-background-neutral-faded) 1px);
+  background-size: 40px 40px;
+  width: 100vw;
+  height: 100vh;
+}
