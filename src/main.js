@@ -1,4 +1,5 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, ipcMain } from 'electron';
+import { writeFile, appendFile, readFileSync } from 'node:fs/promises';
 import path from 'node:path';
 import started from 'electron-squirrel-startup';
 
@@ -34,6 +35,36 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  ipcMain.handle('readSwatches', () => {
+    try {
+      const data = readFileSync('./data/data.json', 'utf8');
+      return data;
+    } catch (err) {
+      console.error(err);
+      return JSON.stringify([]);
+    }
+  });
+
+  ipcMain.on('writeSwatches', (_, swatches) => {
+    writeFile('./data/data.json', swatches, err => {
+      if (err) {
+        console.error(err);
+      }
+    });
+  });
+
+  ipcMain.handle('getNextKey', () => {
+    try {
+      const data = JSON.parse(await readFileSync('./data/key.json', 'utf8'));
+      data.key++;
+      writeFile('./data/data.json', JSON.stringify(data), err => if (err) console.error(err));
+      return data.key;
+    } catch (err) {
+      console.error(err);
+      return 9999;
+    }
+  });
+
   createWindow();
 
   // On OS X it's common to re-create a window in the app when the

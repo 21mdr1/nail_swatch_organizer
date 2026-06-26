@@ -10,33 +10,33 @@ function xyToCoords({ x, y }, multiplier = 40) {
   return ({col: col > 0 ? col : 1, row: row > 0 ? row : 1})
 }
 
-function restoreSwatches(onSuccess=() => {}, onFailure=() => {}) {
+async function restoreSwatches(onSuccess=() => {}, onFailure=(e,_) => console.log(e)) {
+  let swatches;
   try {
-    onSuccess([
-      {id: 1, color: 'dea2a6', col: 5, row: 5, colorChoice: "1", file: [], name: 'test', brand: 'test', notes: 'test'},
-      {id: 2, color: 'c4c66a', col: 1, row: 10, colorChoice: "1", file: [], name: 'test', brand: 'test', notes: 'test'},
-      {id: 3, color: 'b4d8d4', col: 13, row: 10, colorChoice: "1", file: [], name: 'test', brand: 'test', notes: 'test'},
-    ]);
-  } catch(e) {
-    onFailure([
-      {id: 1, color: 'dea2a6', col: 5, colorChoice: "1", row: 5, file: [], name: 'test', brand: 'test', notes: 'test'},
-      {id: 2, color: 'c4c66a', col: 1, colorChoice: "1", row: 10, file: [], name: 'test', brand: 'test', notes: 'test'},
-      {id: 3, color: 'b4d8d4', col: 13, colorChoice: "1", row: 10, file: [], name: 'test', brand: 'test', notes: 'test'},
-    ]);
+    swatches = JSON.parse(await window.storage.readSwatches());
+    onSuccess(swatches);
+  } catch (e) {
+    swatches =[];
+    onFailure(e, []);
   }
 
-  return [];
+  return swatches;
 }
 
-function storeSwatches(swatches, onSuccess=() => {}, onFailure=() => {}) {
-  console.log("Saved")
+async function storeSwatches(swatches, onSuccess=() => {}, onFailure=(e,_) => console.log(e)) {
+  try {
+    window.storage.writeSwatches(swatches);
+    onSuccess();
+  } catch(e) {
+    onFailure(e);
+  }
 }
 
-function addSwatch(swatch, setter=() => {}) {
+async function addSwatch(swatch, setter=() => {}) {
   setter(prev => {
-    swatch.id = getNextKey();
+    swatch.id = await getNextKey();
     storeSwatches([...prev, swatch]);
-    return [...prev, swatch]
+    return [...prev, swatch];
   });
 }
 
@@ -68,9 +68,8 @@ function updateSwatchLocation(swatchId, newLocation, setter=() => {}) {
 }
 
 let key = 3;
-function getNextKey() {
-  key++;
-  return key;
+async function getNextKey() {
+  return await window.storage.getNextKey();
 }
 
 export { getNextKey, coordsToXY, xyToCoords, restoreSwatches, storeSwatches, addSwatch, updateSwatch, deleteSwatch, updateSwatchLocation }
