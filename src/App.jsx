@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Reshaped, useToggle } from "reshaped";
 import { getThemeCSS, baseThemeDefinition, generateThemeColors } from "@reshaped/theming";
 import { useWindowSize } from './utils/useWindowSize';
+import './styles.css';
 
 import BackgroundGrid from './components/BackgroundGrid/BackgroundGrid';
 import AddModal from './components/AddModal/AddModal';

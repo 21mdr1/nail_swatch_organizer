@@ -1,6 +1,6 @@
 import Draggable from 'react-draggable';
 import { Actionable, Popover, Text, Button, useToggle, View } from 'reshaped';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 import AddModal from '../components/AddModal/AddModal';
 import { xyToCoords, coordsToXY, updateSwatch, deleteSwatch } from '../utils/storageUtils';
@@ -10,10 +10,12 @@ export default function DraggbleSwatch({ swatchInfo, isDraggable, updateSwatchCo
   const [ position, setPosition ] = useState(coordsToXY(swatchInfo));
   const [ zIndex, setZIndex ] = useState(1);
   const { active, activate, deactivate } = useToggle(false);
+  const nodeRef = useRef(null);
 
   return (
     <>
     <Draggable
+      nodeRef={nodeRef}
       disabled={!isDraggable}
       position={position}
       onStart={() => setZIndex(99)}
@@ -32,6 +34,7 @@ export default function DraggbleSwatch({ swatchInfo, isDraggable, updateSwatchCo
       }}
     >
       <div
+        ref={nodeRef}
         style={{
           cursor: isDraggable ? 'grab' : 'pointer',
           backgroundColor: swatchInfo.colorChoice === "1" ?`#${swatchInfo.color}` : 'white',
@@ -64,6 +67,7 @@ export default function DraggbleSwatch({ swatchInfo, isDraggable, updateSwatchCo
                 </View>
                 <View align="end">
                   <Button 
+                    fullWidth
                     variant='ghost' 
                     color='primary'
                     onClick={activate}
