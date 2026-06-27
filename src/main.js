@@ -14,6 +14,7 @@ const createWindow = () => {
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
+    icon: './src/assets/icon.png',
     width: width,
     height: height,
     webPreferences: {
