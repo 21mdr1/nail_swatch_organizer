@@ -1,4 +1,4 @@
-import { FileUpload, Link, Image, View } from 'reshaped';
+import { FileUpload, Link } from 'reshaped';
 
 
 export default function FilePicker({ file, onChange }) {
