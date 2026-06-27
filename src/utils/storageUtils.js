@@ -25,7 +25,7 @@ async function restoreSwatches(onSuccess=() => {}, onFailure=(e,_) => console.lo
 
 async function storeSwatches(swatches, onSuccess=() => {}, onFailure=(e,_) => console.log(e)) {
   try {
-    window.storage.writeSwatches(swatches);
+    window.storage.writeSwatches(JSON.stringify(swatches));
     onSuccess();
   } catch(e) {
     onFailure(e);
@@ -33,8 +33,10 @@ async function storeSwatches(swatches, onSuccess=() => {}, onFailure=(e,_) => co
 }
 
 async function addSwatch(swatch, setter=() => {}) {
+  const newId = await getNextKey();
+
   setter(prev => {
-    swatch.id = await getNextKey();
+    swatch.id =  newId;
     storeSwatches([...prev, swatch]);
     return [...prev, swatch];
   });
@@ -67,7 +69,6 @@ function updateSwatchLocation(swatchId, newLocation, setter=() => {}) {
   });
 }
 
-let key = 3;
 async function getNextKey() {
   return await window.storage.getNextKey();
 }

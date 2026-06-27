@@ -3,7 +3,7 @@
 import { contextBridge, ipcRenderer } from 'electron';
 
 contextBridge.exposeInMainWorld('storage', {
-    readSwatches: ipcRenderer.invoke('readSwatches'),
-    writeSwatches: ipcRenderer.send('writeSwatches', swatches);
-    getNextKey: ipcRenderer.invoke('getNextKey');
+    readSwatches: () => ipcRenderer.invoke('readSwatches'),
+    writeSwatches: (swatches) => ipcRenderer.send('writeSwatches', swatches),
+    getNextKey: () => ipcRenderer.invoke('getNextKey'),
 })

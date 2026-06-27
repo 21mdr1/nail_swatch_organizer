@@ -31,7 +31,7 @@ export default function App() {
   const { width, height } = useWindowSize();
 
   useEffect(() => {
-    restoreSwatches(setSwatches, setSwatches);
+    restoreSwatches(setSwatches, (e, swatches) => { console.log(e); setSwatches(swatches)});
   }, [restoreSwatches, setSwatches]);
 
   return (

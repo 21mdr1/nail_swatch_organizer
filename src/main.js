@@ -1,5 +1,6 @@
 import { app, BrowserWindow, screen, ipcMain } from 'electron';
-import { writeFile, appendFile, readFileSync } from 'node:fs/promises';
+import { writeFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import started from 'electron-squirrel-startup';
 
@@ -53,11 +54,13 @@ app.whenReady().then(() => {
     });
   });
 
-  ipcMain.handle('getNextKey', () => {
+  ipcMain.handle('getNextKey', async () => {
     try {
       const data = JSON.parse(await readFileSync('./data/key.json', 'utf8'));
       data.key++;
-      writeFile('./data/data.json', JSON.stringify(data), err => if (err) console.error(err));
+      writeFile('./data/key.json', JSON.stringify(data), err => {
+        if (err){ console.err(err)}
+      });
       return data.key;
     } catch (err) {
       console.error(err);
