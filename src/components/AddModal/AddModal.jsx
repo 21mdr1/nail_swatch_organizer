@@ -65,7 +65,7 @@ export default function AddModal({ active, deactivate, saveSwatch, oldInfo = emp
             </Tabs.Panel>
             <Tabs.Panel value="2">
               <FilePicker 
-                value={formInfo.file} 
+                file={formInfo.file} 
                 onChange={updateOnChange} 
               />
             </Tabs.Panel>

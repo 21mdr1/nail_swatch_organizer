@@ -1,3 +1,6 @@
+
+const BASE_PATH = './src/assets/'
+
 function coordsToXY({ row, col }, multiplier = 40) {
   return ({x: (col * multiplier) - multiplier / 2, y: row * multiplier - multiplier / 2})
 }
@@ -32,11 +35,22 @@ async function storeSwatches(swatches, onSuccess=() => {}, onFailure=(e,_) => co
   }
 }
 
+async function uploadFile(fileObj) {
+  await window.storage.uploadFile(BASE_PATH + fileObj.name, fileObj);
+}
+
+
 async function addSwatch(swatch, setter=() => {}) {
-  const newId = await getNextKey();
+  swatch.id =  await getNextKey();
+
+  if(swatch.file.length === 0) {
+    swatch.file = "";
+  } else {
+    await uploadFile(swatch.file[0]);
+    swatch.file = BASE_PATH + swatch.file[0].name;
+  }
 
   setter(prev => {
-    swatch.id =  newId;
     storeSwatches([...prev, swatch]);
     return [...prev, swatch];
   });

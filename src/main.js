@@ -62,12 +62,20 @@ app.whenReady().then(() => {
       const data = JSON.parse(await readFileSync('./data/key.json', 'utf8'));
       data.key++;
       writeFile('./data/key.json', JSON.stringify(data), err => {
-        if (err){ console.err(err)}
+        if (err){console.error(err)}
       });
       return data.key;
     } catch (err) {
       console.error(err);
       return 9999;
+    }
+  });
+
+  ipcMain.handle('uploadFile', async (_, url, fileObj) => {
+    try {
+      writeFile(url, Buffer.from(fileObj));
+    } catch(e) {
+      console.error(e);
     }
   });
 

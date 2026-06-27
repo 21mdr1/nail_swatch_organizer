@@ -38,7 +38,7 @@ export default function DraggbleSwatch({ swatchInfo, isDraggable, updateSwatchCo
         style={{
           cursor: isDraggable ? 'grab' : 'pointer',
           backgroundColor: swatchInfo.colorChoice === "1" ?`#${swatchInfo.color}` : 'white',
-          backgroundImage: swatchInfo.colorChoice === "2" ? `url(${URL.createObjectURL(swatchInfo.file[0])})` : "",
+          backgroundImage: swatchInfo.colorChoice === "2" ? `url(${swatchInfo.file})` : "",
           backgroundPosition: "center",
           backgroundSize: "cover",
           width:'40px',

@@ -6,4 +6,7 @@ contextBridge.exposeInMainWorld('storage', {
     readSwatches: () => ipcRenderer.invoke('readSwatches'),
     writeSwatches: (swatches) => ipcRenderer.send('writeSwatches', swatches),
     getNextKey: () => ipcRenderer.invoke('getNextKey'),
+    uploadFile: async (url, fileObj) => (
+        ipcRenderer.invoke('uploadFile', url, (new Uint8Array(await fileObj.arrayBuffer())))
+    ),
 })
