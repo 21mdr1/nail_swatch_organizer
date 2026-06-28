@@ -9,6 +9,10 @@ interface iSwatch {
     row: number,
 }
 
+interface iGridAction {
+    type: 'add' | 'modify' | 'delete' | 'move' | 'zoom',
+}
+
 class Grid {
     name: string;
     swatches: iSwatch[];
@@ -51,4 +55,4 @@ class Grid {
     }
 }
 
-export { Grid, type iSwatch };
+export { Grid, type iSwatch, type iGridAction };

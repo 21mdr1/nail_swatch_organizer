@@ -9,6 +9,8 @@ import AddModal from './components/AddModal/AddModal';
 import TwoButtons from './fragments/TwoButtons';
 import SwatchGrid from './components/SwatchGrid/SwatchGrid';
 
+import ContextProvider from './utils/ContextProvider';
+
 import { restoreSwatches, addSwatch } from './utils/storageUtils';
 
 const css = getThemeCSS("myTheme", {
@@ -36,48 +38,50 @@ export default function App() {
 
   return (
     <Reshaped theme="myTheme">
-      <style>{css}</style>
-      <div style={{backgroundColor: 'white', width: '100vw', height:'100vh', overflow: 'hidden'}}>
-        <BackgroundGrid />
-        <SwatchGrid swatches={ swatches } setSwatches={ setSwatches } isEditing={ isEditing } />
-        <TwoButtons 
-          primaryLabel="Add"
-          primaryOnClick={activate}
-          secondaryLabel={isEditing ? "Save" : "Edit"}
-          secondaryOnClick={isEditing ? () => {setIsEditing(false)} : () => setIsEditing(true)}
-          position="absolute"
-          insetBottom={2}
-          insetEnd={2}
-        />
-        <AddModal 
-          active={active} 
-          deactivate={deactivate} 
-          saveSwatch={(newSwatch) => {
-            let selected = false;
-            for(let i = 1; i <= Math.floor((height - 20) / 40); i++) {
-              for(let j = 1; j <= Math.floor((width - 20) / 40); j++) {
-                let isFree = true;
-                for(let swatch of swatches) {
-                  if (swatch.row === i && swatch.col === j) {
-                    isFree = false;
+      <ContextProvider>
+        <style>{css}</style>
+        <div style={{backgroundColor: 'white', width: '100vw', height:'100vh', overflow: 'hidden'}}>
+          <BackgroundGrid />
+          <SwatchGrid swatches={ swatches } setSwatches={ setSwatches } isEditing={ isEditing } />
+          <TwoButtons 
+            primaryLabel="Add"
+            primaryOnClick={activate}
+            secondaryLabel={isEditing ? "Save" : "Edit"}
+            secondaryOnClick={isEditing ? () => {setIsEditing(false)} : () => setIsEditing(true)}
+            position="absolute"
+            insetBottom={2}
+            insetEnd={2}
+          />
+          <AddModal 
+            active={active} 
+            deactivate={deactivate} 
+            saveSwatch={(newSwatch) => {
+              let selected = false;
+              for(let i = 1; i <= Math.floor((height - 20) / 40); i++) {
+                for(let j = 1; j <= Math.floor((width - 20) / 40); j++) {
+                  let isFree = true;
+                  for(let swatch of swatches) {
+                    if (swatch.row === i && swatch.col === j) {
+                      isFree = false;
+                      break;
+                    }
+                  }
+                  if(isFree) {
+                    newSwatch.col = j;
+                    newSwatch.row = i;
+                    selected = true;
                     break;
                   }
                 }
-                if(isFree) {
-                  newSwatch.col = j;
-                  newSwatch.row = i;
-                  selected = true;
+                if(selected) {
                   break;
                 }
               }
-              if(selected) {
-                break;
-              }
-            }
-            addSwatch(newSwatch, setSwatches);
-          }}
-        />
-      </div>
+              addSwatch(newSwatch, setSwatches);
+            }}
+          />
+        </div>
+      </ContextProvider>
     </Reshaped>
   )
 }

@@ -44,6 +44,7 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-draggable": "^4.7.0",
-    "reshaped": "^4.0.3"
+    "reshaped": "^4.0.3",
+    "uuid": "^14.0.1"
   }
 }
