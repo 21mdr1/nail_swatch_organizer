@@ -32,19 +32,19 @@ export default function ContextProvider({ children }: { children: ReactNode }) {
 function gridReducer(grid: Grid, action: iGridAction) {
     switch (action.type) {
         case 'add': {
-            return grid.addSwatch();
+            return grid.addSwatch(action.swatch);
         }
         case 'modify': {
-            return grid.modifySwatch();
+            return grid.modifySwatch(action.swatch);
         }
         case 'delete': {
-            return grid.removeSwatch();
+            return grid.removeSwatch(action.swatch);
         }
         case 'zoom': {
-            return grid.zoom();
+            return grid.zoom(action.zoom, action.save);
         }
         case 'move': {
-            return grid.move();
+            return grid.move(action.transformX, action.transformY, action.save);
         }
         default: {
             throw Error('Unknown action: ' + action.type);
