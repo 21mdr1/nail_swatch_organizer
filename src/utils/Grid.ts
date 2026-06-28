@@ -3,7 +3,7 @@ interface iSwatch {
     brand: string,
     colorChoice: "1" | "2",
     color: string,
-    file: any[] | string,
+    file: File[] | string,
     notes: string,
     col: number,
     row: number,
