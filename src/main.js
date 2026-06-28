@@ -4,6 +4,8 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import started from 'electron-squirrel-startup';
 
+if (require('electron-squirrel-startup')) app.quit();
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
   app.quit();

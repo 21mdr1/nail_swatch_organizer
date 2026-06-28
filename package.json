@@ -1,8 +1,8 @@
 {
   "name": "nail_swatches",
-  "productName": "nail_swatches",
+  "productName": "Nail Polish Swatches Organizer",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Organize your nail polishes in a grid configuration.",
   "main": ".vite/build/main.js",
   "private": true,
   "scripts": {
