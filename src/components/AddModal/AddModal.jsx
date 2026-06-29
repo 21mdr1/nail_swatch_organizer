@@ -2,8 +2,8 @@ import './AddModal.css';
 import { Modal, FormControl, View, Tabs, Button, useToggle } from "reshaped";
 import { useState, useCallback } from 'react';
 
-import FullTextField from "../../fragments/FullTextField";
-import TwoButtons from '../../fragments/TwoButtons';
+import FullTextField from "../../fragments/FullTextField.tsx";
+import TwoButtons from '../../fragments/TwoButtons.tsx';
 import ColorPicker from '../../fragments/ColorPicker';
 import FilePicker from '../../fragments/FilePicker';
 import ConfirmationModal from '../../fragments/ConfirmationModal';

@@ -6,7 +6,7 @@ import './styles.css';
 
 import BackgroundGrid from './components/BackgroundGrid/BackgroundGrid';
 import AddModal from './components/AddModal/AddModal';
-import TwoButtons from './fragments/TwoButtons';
+import TwoButtons from './fragments/TwoButtons.tsx';
 import SwatchGrid from './components/SwatchGrid/SwatchGrid';
 
 import ContextProvider from './utils/ContextProvider';

@@ -1,6 +1,17 @@
 import { FormControl, TextField, TextArea } from 'reshaped';
+import type { ChangeEvent } from 'react';
 
-export default function FullTextField({ label, value, name, placeholder, onChange, type="normal", resize }) {
+type changeHandler = (args: {name: string, value: string, event?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement, Element>}) => void
+
+export default function FullTextField({ label, value, name, placeholder, onChange, type="normal", resize }: {
+  label: string,
+  value: string,
+  name: string,
+  placeholder: string, 
+  onChange?: changeHandler,
+  type: 'normal' | 'big',
+  resize?: 'none' | 'auto', 
+}) {
   return (
     <FormControl>
       <FormControl.Label> {label} </FormControl.Label>
